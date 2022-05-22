@@ -21,7 +21,9 @@ Witch Image by <a href="https://pixabay.com/users/cocoparisienne-127419/?utm_sou
 
 
 ##### Assetstore Assetpacks Used
-<a href ="https://assetstore.unity.com/packages/2d/textures-materials/devtex-prototyping-textures-176107">https://assetstore.unity.com/packages/2d/textures-materials/devtex-prototyping-textures-176107</a>
+https://assetstore.unity.com/packages/2d/textures-materials/devtex-prototyping-textures-176107
+
+https://assetstore.unity.com/packages/3d/props/polygon-starter-pack-low-poly-3d-art-by-synty-156819
 
 
 

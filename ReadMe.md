@@ -25,6 +25,9 @@ https://assetstore.unity.com/packages/2d/textures-materials/devtex-prototyping-t
 
 https://assetstore.unity.com/packages/3d/props/polygon-starter-pack-low-poly-3d-art-by-synty-156819
 
+https://assetstore.unity.com/packages/essentials/starter-assets-third-person-character-controller-196526
+
+
 
 
 

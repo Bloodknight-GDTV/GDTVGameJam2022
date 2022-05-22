@@ -1,0 +1,12 @@
+Font: Coraline's Cat  Style: Regular
+Point Size: 45   SP/PD Ratio: 55.6%
+
+Characters included: 96/96
+Missing characters: 0
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+
+Characters excluded from packing:
+----------------------------------------

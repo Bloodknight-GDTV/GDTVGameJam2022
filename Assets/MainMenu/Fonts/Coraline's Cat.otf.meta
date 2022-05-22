@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: cb5264629e07b5b45a75f945a27b1fa4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Coraline's Cat
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4b4bc5d802570074aa3c67ffb5ce1c04, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

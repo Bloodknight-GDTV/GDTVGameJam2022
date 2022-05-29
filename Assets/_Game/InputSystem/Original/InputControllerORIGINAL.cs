@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputController : MonoBehaviour
+public class InputController000 : MonoBehaviour
 {
     // **********************************
     // This Class is used for Invoke Unity Events version of the input controller

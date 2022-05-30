@@ -67,12 +67,22 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
 
+        if (Input.GetKey(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
+        {
+            OpenPauseMenu();
+        }
 
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             StartCoroutine(Attack());
         }
+    }
+
+    private void OpenPauseMenu()
+    {
+        //throw new NotImplementedException();
+        Debug.Log("Pause menu button");
     }
 
     private IEnumerator Attack()
@@ -103,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded)
         {
-            if (moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+            if (moveDirection != Vector3.zero && (Input.GetKey(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Joystick1Button2)))
             {
                 Run();
             }
@@ -118,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
             //moveDirection *= moveSpeed;
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3))
             {
                 Jump();
             }

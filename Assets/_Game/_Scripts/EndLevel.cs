@@ -11,6 +11,7 @@ public class EndLevel : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log($"Trigger triggered by {other};");
+
         ReloadScene();
     }
 

@@ -4,10 +4,32 @@ using UnityEngine;
 
 public class GameStatistics : MonoBehaviour
 {
-    int dungeonLevel = 0;
-    int playerScore = 0;
-    int playerLives = 5;
-    int playerhealth = 100;
+    public int dungeonLevel = 0;
+    public int playerScore = 0;
+    public int playerLives = 5;
+    public int playerhealth = 100;
+
+    public string GetDungeonLevel()
+    {
+        return dungeonLevel.ToString();
+    }
+
+    public string GetPlayerScore()
+    {
+        return playerScore.ToString();
+    }
+
+    public string GetPlayerLives()
+    {
+        return playerLives.ToString();
+    }
+
+    public void LevelComplete()
+    {
+        dungeonLevel += 1;
+    }
+
+
 
 
     void Start()
@@ -35,4 +57,6 @@ public class GameStatistics : MonoBehaviour
             }
         }
     }
+
+
 }

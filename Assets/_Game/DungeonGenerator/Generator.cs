@@ -24,8 +24,8 @@ public class Generator : MonoBehaviour
 
     [Header("Dungeon Limits")]
 
-    [Range(2, 50)] public int dungeonSize = 10;
-    [Range(0, 1f)] public float constructionDelay = 0.1f;
+    [Range(2, 50)] public int dungeonSize = 6;
+    [Range(0, 1f)] public float constructionDelay = 0.01f;
     public List<Tile> generatedTiles = new List<Tile>();
     Transform tileFrom, tileTo, tileRoot;
 

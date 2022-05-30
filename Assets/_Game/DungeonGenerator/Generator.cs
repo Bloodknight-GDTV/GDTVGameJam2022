@@ -37,32 +37,50 @@ public class Generator : MonoBehaviour
 
     IEnumerator DungeonBuilder()
     {
-        tileRoot = CreateStartTile();
+        int roomType = 2;   // variable **name** is reused but it is always locally scoped
+
+        // This is where you spawn, each dungeon has a start room, 
+        // this is the only safe zone in the dungeon
+        tileRoot = CreateStartRoom();
         tileTo = tileRoot;
-        for (int i = 0; i < dungeonSize - 1; i++)
+        tileFrom = tileTo;
+        tileTo = CreateTile(roomType);
+        ConnectTiles();
+
+        // This loop creates room/passage pairs, evenyually this will create
+        // a sprawling dungeons, but as god knows creating characters is a long 
+        // and painful process, so you get a short run through a straight dungeon
+        for (int i = 0; i < dungeonSize; i++)
         {
             yield return new WaitForSeconds(constructionDelay);
 
             if ((i % 2) == 0)
             {
+                roomType = 1;
                 Debug.Log($"{i} Room");
             }
             else
             {
+                roomType = 2;
                 Debug.Log($"{i} Passage");
             }
-            if (i == dungeonSize - 2)
+
+
+
+            tileFrom = tileTo;
+            tileTo = CreateTile(roomType);
+            ConnectTiles();
+
+            if (i == dungeonSize - 1)
             {
+                // Create Final Boss room at end of dungeon
+                // Upon defeating boss the way forward will open
+                tileFrom = tileTo;
+                tileTo = CreateEndingRoom();
+                ConnectTiles();
+                roomType = 3;
                 Debug.Log("Place End Room here");
             }
-            else
-            {
-                tileFrom = tileTo;
-                tileTo = CreateTile();
-                ConnectTiles();
-            }
-
-
 
         }
     }
@@ -70,17 +88,15 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(reloadKey))
         {
             SceneManager.LoadScene("ProtoLevel");
         }
-
     }
 
     // Game Functions
 
-    // perform black magic to ... connect the two rooms
+    // perform black magic to connect the two rooms
     void ConnectTiles()
     {
         Transform connectFrom = GetRandomConnector(tileFrom);
@@ -89,7 +105,7 @@ public class Generator : MonoBehaviour
         if (connectTo == null) { return; }
 
         connectTo.SetParent(connectFrom);                   // set parent of connector to connector of tileFrom
-        tileTo.SetParent(connectTo);                         // set parent of tileTo to connector of connectTo
+        tileTo.SetParent(connectTo);                        // set parent of tileTo to connector of connectTo
 
         connectTo.localPosition = Vector3.zero;             // set position of connector to 0,0,0 (connector)
         connectTo.localRotation = Quaternion.identity;      // set the rotation of tile to 0,0,0,0
@@ -108,7 +124,9 @@ public class Generator : MonoBehaviour
         // TODO
         if (tile == null) { return null; }                                       // no tile, whaaaaa
         List<Connector> connectorList = new List<Connector>();
-        connectorList = tile.GetComponentsInChildren<Connector>().ToList().FindAll(item => item.isConnected == false);     // .ToList() is used to convert the Array/IEnumerable to a List
+
+        // .ToList() is used to convert the Array/IEnumerable to a List
+        connectorList = tile.GetComponentsInChildren<Connector>().ToList().FindAll(item => item.isConnected == false);
 
         if (connectorList.Count == 0) { return null; }
         int connectorIndex = Random.Range(0, connectorList.Count);
@@ -117,27 +135,53 @@ public class Generator : MonoBehaviour
         return connectorList[connectorIndex].transform;
     }
 
-    Transform CreateTile()
+    Transform CreateTile(int roomType)
     {
-        int randomIndex = Random.Range(0, tilePrefabs.Length);
-        GameObject goTile = Instantiate(tilePrefabs[randomIndex], Vector3.zero, Quaternion.identity, transform) as GameObject;
-        //Instantiate()
-        goTile.name = tilePrefabs[randomIndex].name;
-        //generatedTiles.Add(goTile.GetComponent<Tile>());
-        // 
-        Transform origin = generatedTiles[generatedTiles.FindIndex(item => item.tile == tileFrom)].tile;
-        generatedTiles.Add(new Tile(goTile.transform, origin));
+        int randomIndex;
+        GameObject goTile = null;//new GameObject();
+        Transform origin;
+
+        if (roomType == 1)
+        {
+            randomIndex = Random.Range(0, roomPrefabs.Length);
+            goTile = Instantiate(roomPrefabs[randomIndex], Vector3.zero, Quaternion.identity, transform);
+            goTile.name = roomPrefabs[randomIndex].name;
+            origin = generatedTiles[generatedTiles.FindIndex(item => item.tile == tileFrom)].tile;
+            generatedTiles.Add(new Tile(goTile.transform, origin));
+            return goTile.transform;
+        }
+
+        if (roomType == 2)
+        {
+            randomIndex = Random.Range(0, passagePrefabs.Length);
+            goTile = Instantiate(passagePrefabs[randomIndex], Vector3.zero, Quaternion.identity, transform);
+            goTile.name = passagePrefabs[randomIndex].name;
+            origin = generatedTiles[generatedTiles.FindIndex(item => item.tile == tileFrom)].tile;
+            generatedTiles.Add(new Tile(goTile.transform, origin));
+            return goTile.transform;
+        }
 
         return goTile.transform;
+
+        // // THis isnt the code you are looking for, no really its not, stop reading
+        // int randomIndex = Random.Range(0, placePrefabs.Length);
+        // GameObject goTile = Instantiate(placePrefabs[randomIndex], Vector3.zero, Quaternion.identity, transform);
+        // //Instantiate()
+        // goTile.name = placePrefabs[randomIndex].name;
+        // //generatedTiles.Add(goTile.GetComponent<Tile>());
+        // // 
+        // Transform origin = generatedTiles[generatedTiles.FindIndex(item => item.tile == tileFrom)].tile;
+        // generatedTiles.Add(new Tile(goTile.transform, origin));
     }
 
-    // Randomly select a starting room from a list of starting rooms
-    Transform CreateStartTile()
+    // Randomly select a Starting room from a list of starting rooms
+    Transform CreateStartRoom()
     {
         int index = Random.Range(0, startPrefabs.Length);
         GameObject goTile = Instantiate(startPrefabs[index], Vector3.zero, Quaternion.identity, transform) as GameObject;
         goTile.name = "StartRoom";
         float yrot = Random.Range(0, 4) * 90;
+        yrot = 0;     // test value, delete later
         goTile.transform.Rotate(0, yrot, 0);
 
         generatedTiles.Add(new Tile(goTile.transform, null));
@@ -145,6 +189,7 @@ public class Generator : MonoBehaviour
         return goTile.transform;
     }
 
+    // Randomly select a Ending room from a list of starting rooms
     Transform CreateEndingRoom()
     {
         int index = Random.Range(0, endPrefabs.Length);

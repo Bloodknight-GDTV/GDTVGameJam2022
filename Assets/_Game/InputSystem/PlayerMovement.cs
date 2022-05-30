@@ -38,8 +38,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Ground Speeds")]
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float walkSpeed = 3f;
-    [SerializeField] private float runSpeed = 6f;
+    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float runSpeed = 12f;
     private Vector3 moveDirection;
 
 

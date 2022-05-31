@@ -9,6 +9,19 @@ public class GameStatistics : MonoBehaviour
     public int playerLives = 5;
     public int playerhealth = 100;
 
+    public static GameStatistics Instance;
+    void Awake()
+    {
+        if (Instance) // is there already an Instance assigned?
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
+
     public string GetDungeonLevel()
     {
         return dungeonLevel.ToString();
@@ -24,17 +37,14 @@ public class GameStatistics : MonoBehaviour
         return playerLives.ToString();
     }
 
+    public void IncreaseScore(int value)
+    {
+        playerScore += value;
+    }
+
     public void LevelComplete()
     {
         dungeonLevel += 1;
-    }
-
-
-
-
-    void Start()
-    {
-        DontDestroyOnLoad(this);
     }
 
     public void ResetData()

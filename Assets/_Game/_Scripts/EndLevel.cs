@@ -12,6 +12,9 @@ public class EndLevel : MonoBehaviour
     {
         Debug.Log($"Trigger triggered by {other};");
 
+        GameStatistics.Instance.LevelComplete();
+        GameStatistics.Instance.IncreaseScore(100);
+
         ReloadScene();
     }
 

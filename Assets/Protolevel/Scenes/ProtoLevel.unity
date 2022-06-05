@@ -493,6 +493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 300889879}
+  - component: {fileID: 300889880}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -514,6 +515,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &300889880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300889878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dbc32b9cc53e384589c89fa98ec6634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Lives: {fileID: 446003771}
+  Score: {fileID: 1215424922}
+  Level: {fileID: 1476143607}
 --- !u!1 &307100875
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +942,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4502917474400287865, guid: 86d50d343ccb6ee40ba683a659bd77ac, type: 3}
+      propertyPath: runSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502917474400287865, guid: 86d50d343ccb6ee40ba683a659bd77ac, type: 3}
+      propertyPath: walkSpeed
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4502917474400287866, guid: 86d50d343ccb6ee40ba683a659bd77ac, type: 3}
       propertyPath: m_RootOrder
       value: 4

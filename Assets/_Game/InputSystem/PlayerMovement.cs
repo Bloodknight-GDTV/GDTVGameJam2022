@@ -99,13 +99,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
 
-        if (!isGrounded && velocity.y < 0)
-        {
-            velocity.y = gravity / 2f;
-        }
-
         float moveZ = Input.GetAxis("Vertical");
-
         moveDirection = new Vector3(0, 0, moveZ);
 
         // set forward direction to players forward direction not global directiom
@@ -113,6 +107,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded)
         {
+
+            if (velocity.y < 0)
+            {
+                velocity.y = gravity;// / 2f;
+            }
+
             if (moveDirection != Vector3.zero && (Input.GetKey(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Joystick1Button2)))
             {
                 Run();

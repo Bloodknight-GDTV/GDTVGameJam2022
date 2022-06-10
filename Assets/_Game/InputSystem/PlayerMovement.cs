@@ -37,7 +37,7 @@ RT - 10th Axis
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Ground Speeds")]
-    [SerializeField] private float moveSpeed = 1f;
+    //[SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float walkSpeed = 12f;
     [SerializeField] private float runSpeed = 24f;
     private Vector3 moveDirection;

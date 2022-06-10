@@ -10,7 +10,6 @@ public class Generator : MonoBehaviour
 
     [Header("Basic Rooms")]
     public GameObject[] startPrefabs;
-    public GameObject[] tilePrefabs;
     public GameObject[] roomPrefabs;
     public GameObject[] passagePrefabs;
     public GameObject[] endPrefabs;

@@ -13,19 +13,22 @@ public class EnemyGenerator : MonoBehaviour
     private GameObject[] enemyspawns;
     [SerializeField] private GameObject enemy;
 
+    private float spawnDelay = 0.5f;
+
     void Start()
     {
         enemyspawns = GameObject.FindGameObjectsWithTag("Enemy");
-        StartCoroutine(SpawnEnemy());
+
+        StartCoroutine(SpawnEnemy(spawnDelay));
     }
 
-    IEnumerator SpawnEnemy()
+    IEnumerator SpawnEnemy(float delay)
     {
         foreach (var spawnPoint in enemyspawns)
         {
             Vector3 pos = spawnPoint.transform.position;
             Instantiate(enemy, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(delay);
         }
     }
 }

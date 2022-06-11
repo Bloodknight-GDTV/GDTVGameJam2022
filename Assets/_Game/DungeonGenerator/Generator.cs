@@ -9,12 +9,14 @@ public class Generator : MonoBehaviour
 {
 
     [Header("Basic Rooms")]
-    public GameObject[] startPrefabs;
+
     public GameObject[] roomPrefabs;
     public GameObject[] passagePrefabs;
-    public GameObject[] endPrefabs;
+
 
     [Header("Special Rooms")]
+    public GameObject[] startPrefabs;
+    public GameObject[] endPrefabs;
     public GameObject[] BossPrefabs;
 
     [Header("Debugging")]
@@ -22,7 +24,6 @@ public class Generator : MonoBehaviour
 
 
     [Header("Dungeon Limits")]
-
     [Range(2, 50)] public int dungeonSize = 6;
     [Range(0, 1f)] public float constructionDelay = 0.01f;
     public List<Tile> generatedTiles = new List<Tile>();
@@ -64,23 +65,19 @@ public class Generator : MonoBehaviour
                 Debug.Log($"{i} Passage");
             }
 
-
-
             tileFrom = tileTo;
             tileTo = CreateTile(roomType);
             ConnectTiles();
 
             if (i == dungeonSize - 1)
             {
-                // Create Final Boss room at end of dungeon
-                // Upon defeating boss the way forward will open
+                // TODO: Find and defeats the boss to get the key to this room
                 tileFrom = tileTo;
                 tileTo = CreateEndingRoom();
                 ConnectTiles();
                 roomType = 3;
                 Debug.Log("Place End Room here");
             }
-
         }
     }
 

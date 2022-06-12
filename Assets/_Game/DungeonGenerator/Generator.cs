@@ -194,6 +194,24 @@ public class Generator : MonoBehaviour
         return tileGO.transform;
     }
 
+    private void collisionCheck()
+    {
+        BoxCollider roomBox = tileTo.GetComponent<BoxCollider>();
+        //  if any other room intersects then we need to backtrack
+        //  TODO: figure out how in the heck to do that
+
+    }
+
+    public void ListRooms()
+    {
+        //  need to connect the listed rooms to game objects in the unity scene
+        //  TODO: figure out how in the heck to do that
+        foreach (var item in generatedTiles)
+        {
+
+        }
+    }
+
 
 }
 

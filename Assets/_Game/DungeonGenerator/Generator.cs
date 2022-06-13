@@ -26,6 +26,7 @@ public class Generator : MonoBehaviour
     [Range(2, 50)] public int dungeonSize = 6;
     [Range(0, 1f)] public float constructionDelay = 0.01f;
     public List<Tile> generatedTiles = new List<Tile>();
+    private List<GameObject> roomList = new List<GameObject>();
     Transform tileFrom, tileTo, tileRoot;
 
     // Unity Functions
@@ -91,6 +92,8 @@ public class Generator : MonoBehaviour
         // Dungeon layout Generation is complete
         // set all flags needed to continue generating extra features
 
+        ListRooms();
+
     }// IEnumerator DungeonBuilder()
 
     // perform black magic to connect the two rooms
@@ -148,7 +151,8 @@ public class Generator : MonoBehaviour
             tileGO = Instantiate(roomPrefabs[randomIndex], Vector3.zero, Quaternion.identity, transform);
             tileGO.name = roomPrefabs[randomIndex].name;
             origin = generatedTiles[generatedTiles.FindIndex(item => item.tile == tileFrom)].tile;
-            generatedTiles.Add(new Tile(tileGO.transform, origin));
+            //generatedTiles.Add(new Tile(tileGO.transform, origin));
+            CreateLists(tileGO);
             return tileGO.transform;
         }
 
@@ -158,12 +162,15 @@ public class Generator : MonoBehaviour
             tileGO = Instantiate(passagePrefabs[randomIndex], Vector3.zero, Quaternion.identity, transform);
             tileGO.name = passagePrefabs[randomIndex].name;
             origin = generatedTiles[generatedTiles.FindIndex(item => item.tile == tileFrom)].tile;
-            generatedTiles.Add(new Tile(tileGO.transform, origin));
+            //generatedTiles.Add(new Tile(tileGO.transform, origin));
+            CreateLists(tileGO);
             return tileGO.transform;
         }
 
         return tileGO.transform;
     }
+
+
 
     // Randomly select a Starting room from a list of starting rooms
     private Transform CreateStartRoom()
@@ -175,7 +182,7 @@ public class Generator : MonoBehaviour
         yrot = 0;     // test value, delete later
         tileGO.transform.Rotate(0, yrot, 0);
 
-        generatedTiles.Add(new Tile(tileGO.transform, null));
+        CreateLists(tileGO); ;
 
         return tileGO.transform;
     }
@@ -189,7 +196,7 @@ public class Generator : MonoBehaviour
         float yrot = Random.Range(0, 4) * 90;
         tileGO.transform.Rotate(0, yrot, 0);
 
-        generatedTiles.Add(new Tile(tileGO.transform, null));
+        CreateLists(tileGO);
 
         return tileGO.transform;
     }
@@ -202,11 +209,23 @@ public class Generator : MonoBehaviour
 
     }
 
+    private void CreateLists(GameObject tileGO)
+    {
+        generatedTiles.Add(new Tile(tileGO.transform, null));
+        if (tileGO.name.Contains("Room"))
+        {
+            roomList.Add(tileGO);
+        }
+        //roomList.Add(tileGO);
+
+        Debug.Log($"Added Room {tileGO.name};");
+    }
+
     public void ListRooms()
     {
         //  need to connect the listed rooms to game objects in the unity scene
         //  TODO: figure out how in the heck to do that
-        foreach (var item in generatedTiles)
+        foreach (GameObject room in roomList)
         {
 
         }
